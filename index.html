@@ -18,6 +18,18 @@
 
         <!-- https://vuejs.org/v2/guide/index.html -->
         <div id="app">
+        <div class="container">
+    <div class="jumbotron"  style="background-color: #E8ECEE;">
+        <h1 id=title>{{col.collection.title}}</h1>
+      </div>
+      <div>
+      <div class="card-group" style="margin-left:100px;margin-right: 100px">      
+      <div v-for="peliculas in col.collection.items" is="item-data" v-if="peliculas.visible" v-bind:element="peliculas" ></div>
+      <div v-else is="edit-form" v-bind:element="peliculas">   
+    </div>
+      </div>
+    </div>
+  </div>
             
             <!--
                  TODO: Aplicación VueJS. Ver archivo ./js/script.js
@@ -36,6 +48,16 @@
             <!--
                  TODO: Componente edit-form
             -->
+            <div class="card">
+            <div class="card-body">
+                <div v-for="peli in element.data">
+                  <h4 class="card-title">{{peli.prompt}}</h4>
+                  <input v-if="peli.prompt != 'Description'" type="text" v-model:text="peli.value"/>
+                  <textarea v-else type="text"  v-model:text="peli.value"> </textarea>     
+                </div>  
+              </div>
+              <a v-on:click="Formcerrar(element)" id="formButton" type="button" class="btn btn-danger">Cerrar</a>
+            </div>
 
         </script>
 
@@ -47,6 +69,16 @@
             <!--
                  TODO: Componente item-data
             -->
+            <div class="card">
+                <div class="card-body">
+                    <div v-for=" pelis in element.data">
+                  <h4 class="card-title">{{pelis.prompt}}</h4>
+                  <p class="card-text">{{pelis.value}}</p> 
+                </div>
+                <a v-bind:href="element.href" target="_blanck" type="button" class="btn btn-primary">Ver</a>
+                <a v-on:click="EditFormVisibility(element)" id="formButton" type="button" class="btn btn-secondary">Editar</a>
+                </div>
+              </div>
 
         </script>
 
